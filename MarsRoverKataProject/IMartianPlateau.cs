@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace MarsRoverKataProject
 {
-    internal class Class1
+    public interface IMartianPlateau
     {
+        // public  bool ConstructOccupationMap();
+        public bool ConstructOccupationMap(int[] dimensionsOfPlateau);
+
     }
 }
