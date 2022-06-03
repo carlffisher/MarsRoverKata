@@ -12,9 +12,6 @@ namespace MarsRoverKataProject
         private int[] _dimensionsOfPlateau;
         private char[,] _occupationmap;
         
-        // = new char[_dimensionsOfPlateau[0], _dimensionsOfPlateau[1]];
-
-
         protected MartianPlateau(string shapeOfPlateau, int[] dimensionsOfPlateau, char [,] occupationmap)
         {
             _shapeOfPlateau = shapeOfPlateau;
@@ -30,7 +27,6 @@ namespace MarsRoverKataProject
         public int[] RetrieveDimensionsOfPlateau()
         {
             return _dimensionsOfPlateau;
-
         }
 
         public int[] UpdateDimensionsOfPlateau(int[] platdims)
@@ -50,75 +46,61 @@ namespace MarsRoverKataProject
             return _shapeOfPlateau;
         }
 
-
         public char[,] UpdateOccupationMap(char[,] occupationmap)
         {
             _occupationmap = occupationmap;
             return _occupationmap = occupationmap;
         }
 
+        public bool UpdateStatusOfCoordInOccupationMap(int[] oldpos, int[] newpos)
+        {
+            if (_occupationmap[newpos[0], newpos[1]] == 'X')
+            {
+                return false;
+            }
+            else
+            {
+                _occupationmap[newpos[0], newpos[1]] = 'X';
+                _occupationmap[oldpos[0], oldpos[1]] = '-';
+            }
+
+            return true;
+        }
 
         public char[,] RetrieveOccupationMap()
         {
             return _occupationmap;
         }
 
-
         public bool ConstructOccupationMap(int[] dimensionsOfPlateau)
         {
-
-            return false; // dummy ...
+            return false; 
         }
     }
 
     public class SquareMartianPlateauArea : MartianPlateau
     {
-        static private string mapshape = "SQUARE";
+        static private string _mapshape = "SQUARE";
 
-        static private int[] dimensionsOfPlateau = { 0, 0 };
+        static private int[] _dimensionsOfPlateau = { 0, 0 };
 
-        //static private int[] dimensionsOfPlateau = { 5, 5 };
-        //   static private char[,] _occupationmap = new char[_dimensionsOfPlateau[0], _dimensionsOfPlateau[1]];
+        //static private int[] _dimensionsOfPlateau = { 5, 5 };
+        //   static private char[,] _occupationmap = new char[_dimensionsOfPlateau[0], __imensionsOfPlateau[1]];
         static private char[,] occupationmap = new char[0, 0];
 
+        public SquareMartianPlateauArea() : base(_mapshape, _dimensionsOfPlateau, occupationmap) { }
 
-
-        public SquareMartianPlateauArea() : base(mapshape, dimensionsOfPlateau, occupationmap) { }
-
-
-
-        public new char[,] ConstructOccupationMap(int[] dimensionsOfPlateau)
+        public new char[,] ConstructOccupationMap(int[] _dimensionsOfPlateau)
         {
-            /*
+            _dimensionsOfPlateau = UpdateDimensionsOfPlateau(_dimensionsOfPlateau);
+            _dimensionsOfPlateau = RetrieveDimensionsOfPlateau();
+            occupationmap = new char[_dimensionsOfPlateau[0], _dimensionsOfPlateau[1]];
 
-             int[] tempdimensionsOfPlateau;
+            UpdateOccupationMap(occupationmap); // update the base occupation map ...
 
-             tempdimensionsOfPlateau = RetrieveDimensionsOfPlateau();
-
-             Console.WriteLine("OCCMAP Dimensions Pre = {0} {1}  \n", tempdimensionsOfPlateau[0], tempdimensionsOfPlateau[1]);
-
-             tempdimensionsOfPlateau = UpdateDimensionsOfPlateau(dimensionsOfPlateau);
-
-             Console.WriteLine("OCCMAP Dimensions Post = {0} {1}  \n", tempdimensionsOfPlateau[0], tempdimensionsOfPlateau[1]);
-
-             occupationmap = new char[dimensionsOfPlateau[0], dimensionsOfPlateau[1]];
-
-             */
-
-            dimensionsOfPlateau = UpdateDimensionsOfPlateau(dimensionsOfPlateau);
-            dimensionsOfPlateau = RetrieveDimensionsOfPlateau();
-            occupationmap = new char[dimensionsOfPlateau[0], dimensionsOfPlateau[1]];
-
-
-
-            // update the base occupation map
-
-            UpdateOccupationMap(occupationmap);
-
-
-            for (int i = 0; i < dimensionsOfPlateau[0]; i++)           // Initialise the martion plateau occupation map ...
+            for (int i = 0; i < _dimensionsOfPlateau[0]; i++)           // Initialise the martion plateau occupation map ...
             {
-                for (int j = 0; j < dimensionsOfPlateau[1]; j++)
+                for (int j = 0; j < _dimensionsOfPlateau[1]; j++)
                 {
                     occupationmap[i, j] = '-';                         // '-' == 'unoccupied' 
                 }

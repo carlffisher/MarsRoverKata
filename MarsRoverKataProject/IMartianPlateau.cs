@@ -8,8 +8,6 @@ namespace MarsRoverKataProject
 {
     public interface IMartianPlateau
     {
-        // public  bool ConstructOccupationMap();
         public bool ConstructOccupationMap(int[] dimensionsOfPlateau);
-
     }
 }

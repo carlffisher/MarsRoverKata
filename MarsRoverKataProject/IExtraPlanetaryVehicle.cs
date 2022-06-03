@@ -8,7 +8,6 @@ namespace MarsRoverKataProject
 {
     public interface IExtraPlanetaryVehicle
     {
-        public bool MoveVehicle(char[] movevehiclecoords);
-
+        public string MoveVehicle(SquareMartianPlateauArea plateau, IExtraPlanetaryVehicle extraplanetaryvehicle, char[] movevehiclecoords);
     }
 }
