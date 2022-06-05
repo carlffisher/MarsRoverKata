@@ -1,0 +1,6 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/MarsKataProject2/.vs/MarsKataProject2/v17/TestStore/0/testlog.manifest
+*.suo

@@ -89,27 +89,9 @@ namespace MarsRoverKataProject
 
             NewPosVehicle     = RetrievePositionOfVehicle();
 
-            Console.WriteLine(" RRRRRRRR    OldPos     = {0} {1}", OldPosVehicle[0], OldPosVehicle[1]);
-            Console.WriteLine(" RRRRRRRR    NewPos     = {0} {1}", NewPosVehicle[0], NewPosVehicle[1]);
-            Console.WriteLine(" RRRRRRRR    OldPos     = {0} {1}", OldPosVehicle[0], OldPosVehicle[1]);
-            Console.WriteLine(" RRRRRRRR    NewPos     = {0} {1}", NewPosVehicle[0], NewPosVehicle[1]);
-         
             OldOrientVehicle  = RetrieveOrientationOfVehicle();
             NewOrientVehicle  = RetrieveOrientationOfVehicle();
             DimsPlateau       = plateau.RetrieveDimensionsOfPlateau();
-
-            Console.WriteLine("movevehicleinstructions");
-
-            for (int i = 0; i < movevehicleinstructions.Length; i++)
-            {
-                Console.Write(" {0} ", movevehicleinstructions[i]);
-            }
-
-            Console.WriteLine(" ");
-            Console.WriteLine(" RRRRRRRR    PosVehicle = {0} {1}", OldPosVehicle[0], OldPosVehicle[1]);
-            Console.WriteLine(" RRRRRRRR NewPosVehicle = {0} {1}", NewPosVehicle[0], NewPosVehicle[1]);
-            Console.WriteLine(" OrientVehicle = {0} ", NewOrientVehicle);
-            Console.WriteLine(" DimsPlateau = {0} {1} ", DimsPlateau[0], DimsPlateau[1]);
             
             foreach (char amove in movevehicleinstructions)
             {
@@ -123,16 +105,11 @@ namespace MarsRoverKataProject
 
                                 if (NewPosVehicle[1] + 1 >= DimsPlateau[1])
                                 {
-
                                     return ($"ERROR 003: Attempted move to out of bounds location: coordinates: {NewPosVehicle[0]} {NewPosVehicle[1] + 1}/n");
                                 }
 
-                                Console.WriteLine(" RRRRRRRRW OldPosVehicle = {0} {1}", OldPosVehicle[0], OldPosVehicle[1]);
-                                Console.WriteLine(" RRRRRRRRW NewPosVehicle = {0} {1}", NewPosVehicle[0], NewPosVehicle[1]); 
                                 NewPosVehicle[1]++;
-                                Console.WriteLine(" RRRRRRRRX OldPosVehicle = {0} {1}", OldPosVehicle[0], OldPosVehicle[1]);
-                                Console.WriteLine(" RRRRRRRRX NewPosVehicle = {0} {1}", NewPosVehicle[0], NewPosVehicle[1]);
-
+                                
                                 break;
 
                             case 'S':
@@ -232,29 +209,19 @@ namespace MarsRoverKataProject
                      default:
                         return ($"ERROR 010: Vehicle orientation instruction out of range: {NewOrientVehicle}/n");
                 }
-
             }
-                       
-            Console.WriteLine("HHHHHHHHH OldPosVehicle = {0} {1}", OldPosVehicle[0], OldPosVehicle[1]);
-            Console.WriteLine("HHHHHHHHH NewPosVehicle = {0} {1}", NewPosVehicle[0], NewPosVehicle[1]);
-            Console.WriteLine("SSSSSSSSS OldPosVehicle = {0} {1}", OldPosVehicle[0], OldPosVehicle[1]);
-
+               
             if (!plateau.UpdateStatusOfCoordInOccupationMap(OldPosVehicle, NewPosVehicle))
             {
+                OldPosVehicle = UpdatePositionOfVehicle(OldPosVehicle);
+                OldOrientVehicle = UpdateOrientationOfVehicle(OldOrientVehicle); 
                 return ($"{VehicleName}: Attempted to move to occupied location: coordinates: {NewPosVehicle[0]} {NewPosVehicle[1]} : Please try again!");
             }
             else
             {
-
-                Console.WriteLine("ZZZNew Orient Vehicle = {0} ", NewOrientVehicle);
-
                 NewPosVehicle = UpdatePositionOfVehicle(NewPosVehicle);
                 NewOrientVehicle = UpdateOrientationOfVehicle(NewOrientVehicle);
-
-                Console.WriteLine("ZZZNew Orient Vehicle = {0} ", NewOrientVehicle);
             }
-
-            Console.WriteLine("TTTTTTTTT OldPosVehicle = {0} {1}", OldPosVehicle[0], OldPosVehicle[1]);
 
             return ($"{VehicleName}: successful move to location {NewPosVehicle[0]} {NewPosVehicle[1]}; vehicle now facing {NewOrientVehicle} ");
         }

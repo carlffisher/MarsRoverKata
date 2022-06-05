@@ -23,7 +23,6 @@ namespace MarsRoverKataProject
         public int[] DimensionsOfPlateau { get { return _dimensionsOfPlateau; } private set { _dimensionsOfPlateau = value; } }
         public char[,] OccupationMap { get { return _occupationmap; } private set { _occupationmap = value; } }
 
-
         public int[] RetrieveDimensionsOfPlateau()
         {
             return _dimensionsOfPlateau;
@@ -84,8 +83,6 @@ namespace MarsRoverKataProject
 
         static private int[] _dimensionsOfPlateau = { 0, 0 };
 
-        //static private int[] _dimensionsOfPlateau = { 5, 5 };
-        //   static private char[,] _occupationmap = new char[_dimensionsOfPlateau[0], __imensionsOfPlateau[1]];
         static private char[,] occupationmap = new char[0, 0];
 
         public SquareMartianPlateauArea() : base(_mapshape, _dimensionsOfPlateau, occupationmap) { }

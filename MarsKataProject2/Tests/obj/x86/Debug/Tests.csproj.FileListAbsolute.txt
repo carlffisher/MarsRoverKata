@@ -1,0 +1,22 @@
+D:\Users\carlf\Udemy C# Course\CSharpProjects\CSharpProjects\Step03\Tests\Tests\bin\Debug\Tests.exe.config
+D:\Users\carlf\Udemy C# Course\CSharpProjects\CSharpProjects\Step03\Tests\Tests\bin\Debug\Tests.exe
+D:\Users\carlf\Udemy C# Course\CSharpProjects\CSharpProjects\Step03\Tests\Tests\bin\Debug\Tests.pdb
+D:\Users\carlf\Udemy C# Course\CSharpProjects\CSharpProjects\Step03\Tests\Tests\obj\x86\Debug\Tests.csproj.AssemblyReference.cache
+D:\Users\carlf\Udemy C# Course\CSharpProjects\CSharpProjects\Step03\Tests\Tests\obj\x86\Debug\Tests.csproj.SuggestedBindingRedirects.cache
+D:\Users\carlf\Udemy C# Course\CSharpProjects\CSharpProjects\Step03\Tests\Tests\obj\x86\Debug\Eric.Form1.resources
+D:\Users\carlf\Udemy C# Course\CSharpProjects\CSharpProjects\Step03\Tests\Tests\obj\x86\Debug\Tests.Properties.Resources.resources
+D:\Users\carlf\Udemy C# Course\CSharpProjects\CSharpProjects\Step03\Tests\Tests\obj\x86\Debug\Tests.csproj.GenerateResource.cache
+D:\Users\carlf\Udemy C# Course\CSharpProjects\CSharpProjects\Step03\Tests\Tests\obj\x86\Debug\Tests.csproj.CoreCompileInputs.cache
+D:\Users\carlf\Udemy C# Course\CSharpProjects\CSharpProjects\Step03\Tests\Tests\obj\x86\Debug\Tests.exe
+D:\Users\carlf\Udemy C# Course\CSharpProjects\CSharpProjects\Step03\Tests\Tests\obj\x86\Debug\Tests.pdb
+D:\Users\carlf\source\repos\MarsRoverKata\MarsKataProject2\Tests\bin\Debug\Tests.exe.config
+D:\Users\carlf\source\repos\MarsRoverKata\MarsKataProject2\Tests\bin\Debug\Tests.exe
+D:\Users\carlf\source\repos\MarsRoverKata\MarsKataProject2\Tests\bin\Debug\Tests.pdb
+D:\Users\carlf\source\repos\MarsRoverKata\MarsKataProject2\Tests\obj\x86\Debug\Tests.csproj.AssemblyReference.cache
+D:\Users\carlf\source\repos\MarsRoverKata\MarsKataProject2\Tests\obj\x86\Debug\Tests.csproj.SuggestedBindingRedirects.cache
+D:\Users\carlf\source\repos\MarsRoverKata\MarsKataProject2\Tests\obj\x86\Debug\Eric.Form1.resources
+D:\Users\carlf\source\repos\MarsRoverKata\MarsKataProject2\Tests\obj\x86\Debug\Tests.Properties.Resources.resources
+D:\Users\carlf\source\repos\MarsRoverKata\MarsKataProject2\Tests\obj\x86\Debug\Tests.csproj.GenerateResource.cache
+D:\Users\carlf\source\repos\MarsRoverKata\MarsKataProject2\Tests\obj\x86\Debug\Tests.csproj.CoreCompileInputs.cache
+D:\Users\carlf\source\repos\MarsRoverKata\MarsKataProject2\Tests\obj\x86\Debug\Tests.exe
+D:\Users\carlf\source\repos\MarsRoverKata\MarsKataProject2\Tests\obj\x86\Debug\Tests.pdb

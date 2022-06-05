@@ -30,31 +30,17 @@ namespace MarsRoverKataProject.Tests
 
             MarsRover marsrover1 = new();
 
-            Console.WriteLine("MR1 ORIENT = {0} ", marsrover1.OrientationOfVehicle);
             marsrover1.RetrieveOrientationOfVehicle().Should().Be('N');
             marsrover1.UpdateOrientationOfVehicle('W').Should().Be('W');
-            Console.WriteLine("MR1 ORIENT = {0} ", marsrover1.OrientationOfVehicle);
-
             marsrover1.RetrievePositionOfVehicle().Should().BeEquivalentTo(TestIntegerArray1);
-            Console.WriteLine("MR1 POSITION =  {0} {1}", TestIntegerArray1[0], TestIntegerArray1[1]);
-
             marsrover1.UpdatePositionOfVehicle(PosIntArray2).Should().BeEquivalentTo(PosIntArray2);
-            Console.WriteLine("MR1 POSITION =  {0} {1}", PosIntArray2[0], PosIntArray2[1]);
 
             MarsRover marsrover2 = new();
 
-            Console.WriteLine("MR2 ORIENT = {0} ", marsrover2.OrientationOfVehicle);
             marsrover2.RetrieveOrientationOfVehicle().Should().Be('N');
             marsrover2.UpdateOrientationOfVehicle('E').Should().Be('E');
-            Console.WriteLine("MR2 ORIENT = {0} ", marsrover2.OrientationOfVehicle);
-
             marsrover2.RetrievePositionOfVehicle().Should().BeEquivalentTo(TestIntegerArray1);
-            Console.WriteLine("MR2 POSITION =  {0} {1}", TestIntegerArray1[0], TestIntegerArray1[1]);
-
             marsrover2.UpdatePositionOfVehicle(PosIntArray3).Should().BeEquivalentTo(PosIntArray3);
-            Console.WriteLine("MR2 POSITION =  {0} {1}", PosIntArray3[0], PosIntArray3[1]);
-
-            Console.WriteLine("MR2 POSITION GET DIRECTLY  =  {0} ", marsrover2.OrientationOfVehicle);
         }
 
         [Test]
@@ -62,8 +48,7 @@ namespace MarsRoverKataProject.Tests
         {
             // MartianPlateauArea object correctly instantiated and constructed
             // MartianPlateauArea object correctly updates/retrieves shape and dimensions of plateau
-            // MartianPlateauArea object correctly creates occupation map, and updates/retrieves shape from it ...
-
+            // MartianPlateauArea object correctly creates occupation map, and updates/retrieves from it ...
 
             // shape ...
 
@@ -71,38 +56,34 @@ namespace MarsRoverKataProject.Tests
 
             martianplateauarea1.RetrieveShapeOfPlateau().Should().Be("SQUARE");
 
-            Console.WriteLine("MPA1 Shape   = {0}", martianplateauarea1.RetrieveShapeOfPlateau());
-
-
             // dimensions ...
 
             int[] TestIntegerArray0 = { 0, 0 };
-            int[] TestIntegerArray1 = { 5, 5 };
+            int[] TestIntegerArray1 = { 6, 6 };
 
             martianplateauarea1.RetrieveDimensionsOfPlateau().Should().BeEquivalentTo(TestIntegerArray0);
-
-            Console.WriteLine("MPA1 Dimensions   = {0} {1} ", TestIntegerArray0[0], TestIntegerArray0[0]);
-
             martianplateauarea1.UpdateDimensionsOfPlateau(TestIntegerArray1).Should().BeEquivalentTo(TestIntegerArray1);
-
-            Console.WriteLine("MPA1 Dimensions   = {0} {1} ", TestIntegerArray1[0], TestIntegerArray1[1]);
-
             martianplateauarea1.UpdateDimensionsOfPlateau(TestIntegerArray0).Should().BeEquivalentTo(TestIntegerArray0);
-
-            Console.WriteLine("MPA1 Dimensions   = {0} {1} ", TestIntegerArray0[0], TestIntegerArray0[1]);
-
 
             // create an occupation map ...
 
-            int[]   DimensionsOfPlateau1 = { 5, 5 };
+            int[]   DimensionsOfPlateau1 = { 6, 6 };
             int[]   DimensionsOfPlateau2 = { 2, 5 };
-            char[,] Occupationmap1 = new char[5, 5];
+            char[,] Occupationmap1 = new char[6, 6];
 
             char[,] expected_arr2D1 = new char[,] { { '-', '-', '-', '-', '-' },
                                                     { '-', '-', '-', '-', '-' },
                                                     { '-', '-', '-', '-', '-' },
                                                     { '-', '-', '-', '-', '-' },
                                                     { '-', '-', '-', '-', '-' } };
+
+            char[,] expected_arr2D3 = new char[,] { { '-', '-', '-', '-', '-', '-' },
+                                                    { '-', '-', '-', '-', '-', '-' },
+                                                    { '-', '-', '-', '-', '-', '-' },
+                                                    { '-', '-', '-', '-', '-', '-' },
+                                                    { '-', '-', '-', '-', '-', '-' },
+                                                    { '-', '-', '-', '-', '-', '-' } };
+
 
             char[,] expected_arr2D2 = new char[,] {  { 'X', '-', '-', '-', '-' },
                                                     { '-', '-', '-', '-', '-' },
@@ -111,28 +92,15 @@ namespace MarsRoverKataProject.Tests
                                                     { '-', '-', '-', '-', '-' } };
 
 
-            martianplateauarea1.ConstructOccupationMap(DimensionsOfPlateau1).Should().BeEquivalentTo(expected_arr2D1);
+            martianplateauarea1.ConstructOccupationMap(DimensionsOfPlateau1).Should().BeEquivalentTo(expected_arr2D3);
 
-            martianplateauarea1.RetrieveOccupationMap().Should().BeEquivalentTo(expected_arr2D1);
+            martianplateauarea1.RetrieveOccupationMap().Should().BeEquivalentTo(expected_arr2D3);
 
             Occupationmap1 = martianplateauarea1.RetrieveOccupationMap();
 
-            Console.Write("\n");
-
-            for (int i = 0; i < DimensionsOfPlateau1[0]; i++)
-            {
-                for (int j = 0; j < DimensionsOfPlateau1[1]; j++)
-                {
-                    Console.Write("occmapA1: {0} {1} = {2} \n", i, j, Occupationmap1[i, j]);
-                }
-            }
-
-
             // change the status of initial location coord in occupation map and update it ...
 
-            Occupationmap1[0, 0] = 'X';
-            
-            martianplateauarea1.UpdateOccupationMap(Occupationmap1).Should().BeEquivalentTo(expected_arr2D2); // Without occupation check - it's a new map
+            martianplateauarea1.UpdateOccupationMap(Occupationmap1).Should().BeEquivalentTo(expected_arr2D3); // Without occupation check - it's a new map
 
             int[] OldPosVehicle = { 0, 0 };
             int[] NewPosVehicle = { 0, 1 };
@@ -141,35 +109,20 @@ namespace MarsRoverKataProject.Tests
 
             bool TestBool = true;
             martianplateauarea1.UpdateStatusOfCoordInOccupationMap(OldPosVehicle, NewPosVehicle).Should().Be(TestBool); // With occupation check
-
-            if (!TestBool) // With occupation check
-            {
-                    Console.WriteLine( $"Attempted to initialise an occupied map location: coordinates: {NewPosVehicle[0]} {NewPosVehicle[1]} : Please try again!");
-            }
-            
-            Occupationmap1 = martianplateauarea1.RetrieveOccupationMap();
-
-            for (int i = 0; i < DimensionsOfPlateau1[0]; i++)
-            {
-                for (int j = 0; j < DimensionsOfPlateau1[1]; j++)
-                {
-                    Console.Write("occmapA2: {0} {1} = {2} \n", i, j, Occupationmap1[i, j]);
-                }
-            }
         }
 
         [Test]
         public void Test4()
         {
-            // Create two MarsRoverObjects and test each of them correctly update shared occupation map ...
+            // Test updates to occupation map ...
 
-            char[,] Occupationmap1 = new char[5, 5];
-            int[]   DimensionsOfPlateau1 = { 5, 5 };
+            char[,] Occupationmap1 = new char[6, 6];
+            int[]   DimensionsOfPlateau1 = { 6, 6 };
             int[]   OldPosVehicle = { 0, 0 };
             int[]   NewPosVehicle = { 0, 0 };
 
-            MarsRover marsrover1 = new();
-            MarsRover marsrover2 = new();
+            // MarsRover marsrover1 = new();
+            // MarsRover marsrover2 = new();
             SquareMartianPlateauArea martianplateauarea1 = new();
 
             char[,] expected_arr2D1 = new char[,] { { '-', '-', '-', '-', '-' },
@@ -191,13 +144,26 @@ namespace MarsRoverKataProject.Tests
                                                     { '-', 'X', '-', 'X', '-' },
                                                     { '-', '-', '-', '-', '-' } };
 
+            char[,] expected_arr2D4 = new char[,] { { '-', '-', '-', '-', '-', '-' },
+                                                    { '-', '-', '-', '-', '-', '-' },
+                                                    { '-', '-', '-', '-', '-', '-' },
+                                                    { '-', '-', '-', '-', '-', '-' },
+                                                    { '-', '-', '-', '-', '-', '-' },
+                                                    { '-', '-', '-', '-', '-', '-' } };
 
-            martianplateauarea1.ConstructOccupationMap(DimensionsOfPlateau1).Should().BeEquivalentTo(expected_arr2D1);
-            martianplateauarea1.RetrieveOccupationMap().Should().BeEquivalentTo(expected_arr2D1);
+            char[,] expected_arr2D5 = new char[,] { { 'X', 'X', '-', '-', '-', '-' },
+                                                    { '-', '-', '-', '-', '-', '-' },
+                                                    { '-', '-', '-', '-', '-', '-' },
+                                                    { '-', 'X', '-', 'X', '-', '-' },
+                                                    { '-', 'X', '-', '-', '-', '-' },
+                                                    { '-', '-', '-', '-', '-', '-' } };
+
+            martianplateauarea1.ConstructOccupationMap(DimensionsOfPlateau1).Should().BeEquivalentTo(expected_arr2D4);
+            martianplateauarea1.RetrieveOccupationMap().Should().BeEquivalentTo(expected_arr2D4);
 
             // Update a coordinate in occupation map in map ...
 
-            Occupationmap1 = expected_arr2D1;
+            Occupationmap1 = expected_arr2D4;
 
             Occupationmap1[0, 0] = 'X';
             Occupationmap1[0, 1] = 'X';
@@ -205,21 +171,9 @@ namespace MarsRoverKataProject.Tests
             Occupationmap1[3, 1] = 'X';
             Occupationmap1[4, 1] = 'X';
 
-            martianplateauarea1.UpdateOccupationMap(Occupationmap1).Should().BeEquivalentTo(expected_arr2D2); // Without occupation check - it's a new map
+            martianplateauarea1.UpdateOccupationMap(Occupationmap1).Should().BeEquivalentTo(expected_arr2D5); // Without occupation check - it's a new map
 
-            Occupationmap1 = martianplateauarea1.RetrieveOccupationMap();
-
-            Console.Write("XXXXXXXXXXXXXXXX\n");
-
-            for (int i = 0; i < DimensionsOfPlateau1[0]; i++)
-            {
-                for (int j = 0; j < DimensionsOfPlateau1[1]; j++)
-                {
-                    Console.Write("occmapB1: {0} {1} = {2} \n", i, j, Occupationmap1[i, j]);
-                }
-            }
-
-            // Now updare another coordinat in occupation map, this time checking for occupation of cood location ...
+            // Now update another coordinate in occupation map, this time checking for occupation of coord location ...
 
             OldPosVehicle[0] = 4;
             OldPosVehicle[1] = 1;
@@ -229,33 +183,18 @@ namespace MarsRoverKataProject.Tests
             bool TestBool = true;
 
             martianplateauarea1.UpdateStatusOfCoordInOccupationMap(OldPosVehicle, NewPosVehicle).Should().Be(TestBool); // With occupation check
-
-            if (!TestBool) // With occupation check
-            {
-                Console.WriteLine($"Attempted to initialise an occupied map location: coordinates: {NewPosVehicle[0]} {NewPosVehicle[1]} : Please try again!");
-            }
-
-            Occupationmap1 = martianplateauarea1.RetrieveOccupationMap();
-
-            Console.Write("XXXXXXXXXXXXXXXX\n");
-
-            for (int i = 0; i < DimensionsOfPlateau1[0]; i++)
-            {
-                for (int j = 0; j < DimensionsOfPlateau1[1]; j++)
-                {
-                    Console.Write("occmapB2: {0} {1} = {2} \n", i, j, Occupationmap1[i, j]);
-                }
-            }
         }
 
         [Test]
         public void Test5()
         {
-            // MarsRover Interface Method MoveVehicle() call tested for two marsrovers...
+            // MarsRover Interface Method MoveVehicle() call tested for two marsrovers..
+            // Mars rovers correctly upade positions and location on occupation map.
 
-            char[,] Occupationmap1 = new char[5, 5];
-            char[,] OccupationMap2 = new char[5, 5];
-            int[]   DimensionsOfPlateau1 = { 5, 5 };
+
+            char[,] Occupationmap1 = new char[6, 6];
+            char[,] OccupationMap2 = new char[6, 6];
+            int[]   DimensionsOfPlateau1 = { 6, 6 };
             string  MoveConfirmString;
 
             char[,] expected_arr2D1 = new char[,] { { '-', '-', '-', '-', '-' },
@@ -283,6 +222,20 @@ namespace MarsRoverKataProject.Tests
                                                     { '-', '-', '-', 'X', '-' },
                                                     { '-', '-', '-', '-', '-' } };
 
+            char[,] expected_arr2D5 = new char[,] { { '-', '-', '-', '-', '-', '-' },
+                                                    { '-', '-', '-', '-', '-', '-' },
+                                                    { '-', '-', '-', '-', '-', '-' },
+                                                    { '-', '-', '-', '-', '-', '-' },
+                                                    { '-', '-', '-', '-', '-', '-' },
+                                                    { '-', '-', '-', '-', '-', '-' } };
+
+            char[,] expected_arr2D6 = new char[,] { { 'X', '-', '-', '-', '-', '-' },
+                                                    { '-', '-', '-', '-', '-', '-' },
+                                                    { '-', '-', '-', '-', '-', '-' },
+                                                    { '-', '-', '-', '-', '-', '-' },
+                                                    { '-', '-', '-', '-', '-', '-' },
+                                                    { '-', '-', '-', '-', '-', '-' } };
+
 
             // Set Up the initial coordinate map and test its construction ...
 
@@ -292,31 +245,16 @@ namespace MarsRoverKataProject.Tests
             marsrover1.UpdateNameOfVehicle("marsrover1");
             marsrover2.UpdateNameOfVehicle("marsrover2");
 
-            Console.Write("VVVVVVVVVVVVVVVVVVVVV Vehicle Name: = {0} \n", marsrover1.RetrieveNameOfVehicle());
-
             SquareMartianPlateauArea martianplateauarea1 = new();
             
-            martianplateauarea1.ConstructOccupationMap(DimensionsOfPlateau1).Should().BeEquivalentTo(expected_arr2D1);
-            martianplateauarea1.RetrieveOccupationMap().Should().BeEquivalentTo(expected_arr2D1);
+            martianplateauarea1.ConstructOccupationMap(DimensionsOfPlateau1).Should().BeEquivalentTo(expected_arr2D5);
+            martianplateauarea1.RetrieveOccupationMap().Should().BeEquivalentTo(expected_arr2D5);
 
             Occupationmap1 = martianplateauarea1.RetrieveOccupationMap();
 
             Occupationmap1[0, 0] = 'X';
             
-            martianplateauarea1.UpdateOccupationMap(Occupationmap1).Should().BeEquivalentTo(expected_arr2D2); // Without occupation check - it's a new map
-
-            Occupationmap1 = martianplateauarea1.RetrieveOccupationMap();
-
-            Console.Write("XXXXXXXXXXXXXXXX\n");
-
-            for (int i = 0; i < DimensionsOfPlateau1[0]; i++)
-            {
-                for (int j = 0; j < DimensionsOfPlateau1[1]; j++)
-                {
-                    Console.Write("occmapB1: {0} {1} = {2} \n", i, j, Occupationmap1[i, j]);
-                }
-            }
-
+            martianplateauarea1.UpdateOccupationMap(Occupationmap1).Should().BeEquivalentTo(expected_arr2D6); // Without occupation check - it's a new map
 
             // Now set up marsrover1 move from occupation map coords 1, 2 initially facing N ...
             // Set up new start postion on a occupaton map ...
@@ -324,18 +262,10 @@ namespace MarsRoverKataProject.Tests
             int[] OldPosVehicle = { 0, 0 };
             int[] NewPosVehicle = { 1, 2 };
 
-            Console.WriteLine("SSSSSSSSS OldPosVehicle = {0} {1}", OldPosVehicle[0], OldPosVehicle[1]);
-
             bool TestBool = true;
 
             martianplateauarea1.UpdateStatusOfCoordInOccupationMap(OldPosVehicle, NewPosVehicle).Should().Be(TestBool); // With occupation check
             
-            if (!TestBool)
-            {
-                Console.WriteLine($"Attempted to initialise an occupied map location: coordinates: {NewPosVehicle[0]} {NewPosVehicle[1]} : Please try again!");
-                return;
-            }
-
             marsrover1.UpdateOrientationOfVehicle('N').Should().Be('N');
 
             int[] TestIntegerArray1 = { 1, 2 };
@@ -343,18 +273,6 @@ namespace MarsRoverKataProject.Tests
             int[] PosIntArray3 = { 0, 0 };
 
             marsrover1.UpdatePositionOfVehicle(TestIntegerArray1).Should().BeEquivalentTo(PosIntArray2);
-
-            PosIntArray3 = marsrover1.RetrievePositionOfVehicle();
-
-            Console.WriteLine("MR1 POSITION =  {0} {1}", PosIntArray3[0], PosIntArray3[1]);
-
-            for (int i = 0; i < DimensionsOfPlateau1[0]; i++)
-            {
-                for (int j = 0; j < DimensionsOfPlateau1[1]; j++)
-                {
-                    Console.Write("occmapC1: {0} {1} = {2} \n", i, j, Occupationmap1[i, j]);
-                }
-            }
 
             // Now move marsrover1 from the above position ...
 
@@ -364,22 +282,6 @@ namespace MarsRoverKataProject.Tests
 
             marsrover1.MoveVehicle(martianplateauarea1, marsrover1, MoveVehicleInstructions1).Should().Be(MoveConfirmString);
 
-            // MoveConfirmString = marsrover1.MoveVehicle(martianplateauarea1, marsrover1, MoveVehicleInstructions1);
-
-            Console.WriteLine("{0}", MoveConfirmString);
-            Console.WriteLine("/n");
-
-            Occupationmap1 = martianplateauarea1.RetrieveOccupationMap();
-
-            for (int i = 0; i < DimensionsOfPlateau1[0]; i++)
-            {
-                for (int j = 0; j < DimensionsOfPlateau1[1]; j++)
-                {
-                    Console.Write("occmapA5: {0} {1} = {2} \n", i, j, Occupationmap1[i, j]);
-                }
-            }
-
-
             // Now move marsrover2   ...
             // Set up new start postion on occupation map ...
 
@@ -388,101 +290,33 @@ namespace MarsRoverKataProject.Tests
             NewPosVehicle[0] = 3;
             NewPosVehicle[1] = 3;
 
-            Console.WriteLine("RRRRRRRRRRRRRRRRRR OldPosVehicle = {0} {1}", OldPosVehicle[0], OldPosVehicle[1]);
-
             TestBool = true;
             martianplateauarea1.UpdateStatusOfCoordInOccupationMap(OldPosVehicle, NewPosVehicle).Should().Be(TestBool); // With occupation check
-
-            if (!TestBool)
-            {
-                Console.WriteLine($"Attempted to initialise an occupied map location: coordinates: {NewPosVehicle[0]} {NewPosVehicle[1]} : Please try again!");
-                return;
-            }
 
             marsrover2.UpdateOrientationOfVehicle('E').Should().Be('E');
 
             int[] posintarray5 = { 3, 3 };
 
             marsrover2.UpdatePositionOfVehicle(NewPosVehicle).Should().BeEquivalentTo(posintarray5);
-
-            TestIntegerArray1 = marsrover2.RetrievePositionOfVehicle();
-
-            Occupationmap1 = martianplateauarea1.RetrieveOccupationMap();
-
-            Console.WriteLine("MR2 POSITION =  {0} {1}", TestIntegerArray1[0], TestIntegerArray1[1]);
-
-            for (int i = 0; i < DimensionsOfPlateau1[0]; i++)
-            {
-                for (int j = 0; j < DimensionsOfPlateau1[1]; j++)
-                {
-                    Console.Write("occmapC2: {0} {1} = {2} \n", i, j, Occupationmap1[i, j]);
-                }
-            }
            
-         //  char[] MoveVehicleInstructions2 = { 'M', 'R', 'M', 'R', 'M', 'R', 'M', 'R' }; // This will trigger an occupied coord msg
-
-             char[] MoveVehicleInstructions2 = { 'M','R', 'M', 'R', 'M', 'L' };
+            char[] MoveVehicleInstructions2 = { 'M','R', 'M', 'R', 'M', 'L' };
 
             MoveConfirmString = "marsrover2: successful move to location 3 2; vehicle now facing S ";
 
             marsrover2.MoveVehicle(martianplateauarea1, marsrover2, MoveVehicleInstructions2).Should().Be(MoveConfirmString);
-
-            Console.WriteLine("{0}", MoveConfirmString);
-            Console.WriteLine("/n");
-
-            Occupationmap1 = martianplateauarea1.RetrieveOccupationMap();
-
-            for (int i = 0; i < DimensionsOfPlateau1[0]; i++)
-            {
-                for (int j = 0; j < DimensionsOfPlateau1[1]; j++)
-                {
-                    Console.Write("occmapC2: {0} {1} = {2} \n", i, j, Occupationmap1[i, j]);
-                }
-            }
-
 
             // Now move marsrover1 again, resuming from previous end position...
 
             int[] PosIntArray7 = { 1, 3 };
 
             marsrover1.RetrieveOrientationOfVehicle().Should().Be('N');
-            Console.WriteLine("MR1 / 2 ORIENT = {0} ", marsrover1.OrientationOfVehicle);
-
             marsrover1.RetrievePositionOfVehicle().Should().BeEquivalentTo(PosIntArray7);
-            PosIntArray7 = marsrover1.RetrievePositionOfVehicle();
-            Console.WriteLine("MR1 / 2 POSITION =  {0} {1}", PosIntArray7[0], PosIntArray7[1]);
-            OccupationMap2 = martianplateauarea1.RetrieveOccupationMap();
-
-
-            for (int i = 0; i < DimensionsOfPlateau1[0]; i++)
-            {
-                for (int j = 0; j < DimensionsOfPlateau1[1]; j++)
-                {
-                    Console.Write("occmapC2: {0} {1} = {2} \n", i, j, OccupationMap2[i, j]);
-                }
-            }
-
-         // char[] MoveVehicleInstructions2 = { 'M', 'R', 'M', 'R', 'M', 'R', 'M', 'R' }; // This will trigger an occupied coord msg
 
             char[] MoveVehicleInstructions3  = { 'M', 'R','M', 'R', 'L', 'M', 'R', 'R', 'M', 'M' };
-
 
             MoveConfirmString = "marsrover1: successful move to location 1 4; vehicle now facing W ";
 
             marsrover1.MoveVehicle(martianplateauarea1, marsrover1, MoveVehicleInstructions3).Should().Be(MoveConfirmString);
-
-            Console.WriteLine("{0}", MoveConfirmString);
-            Console.WriteLine("/n");
-
-            Occupationmap1 = martianplateauarea1.RetrieveOccupationMap();
-
-            for (int i = 0; i < DimensionsOfPlateau1[0]; i++)
-            {
-                for (int j = 0; j < DimensionsOfPlateau1[1]; j++)
-                {
-                    Console.Write("occmapC2: {0} {1} = {2} \n", i, j, Occupationmap1[i, j]);
-                }
-            } 
         }
     }
 }

@@ -6,9 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarsRoverKataProject", "MarsRoverKataProject.csproj", "{A70C457F-D37B-4A15-93D6-ED7A6908A8B3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C7D5EB82-5B83-4ED4-BB0C-D635D5269162}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\..\..\Udemy C# Course\CSharpProjects\CSharpProjects\Step03\Tests\Tests\Form1.cs = ..\..\..\..\Udemy C# Course\CSharpProjects\CSharpProjects\Step03\Tests\Tests\Form1.cs
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
