@@ -6,8 +6,8 @@ This code implements the NUnit test function.
 To activate it:
 
 * The reference to Microsoft.NET.Test.Sdk in MarsRoverKataProject3.csproj is commented out. Uncomment it.
-* In Programs.cs the reference to the original Main method is commented out. Uncomment it, and ...
-* In Programs.cs comment out the Main method above the original.
+* Install Microsoft.NET.Test.Sdk with VS Package Manager
+* In Programs.cs comment out Main() method
 * Rebuild
 
 
