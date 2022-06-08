@@ -69,11 +69,11 @@ namespace MarsRoverKataProject3
 
                 richTextBox1.Text = " ";
 
-                for (int j = DimensionsOfPlateau[0]-1; j >= 0; j--)
+                for (int j = DimensionsOfPlateau[1] - 1; j >= 0; j--)
                 {
                     StringBuilder outstringbuffer = new StringBuilder(" ", 20);
 
-                    for (int i = 0; i < DimensionsOfPlateau[1]; i++)
+                    for (int i = 0; i < DimensionsOfPlateau[0]; i++)
                     {
                         outstringbuffer.Append("    ");
                         outstringbuffer.Append(OccupationMap[i, j]);
@@ -147,13 +147,13 @@ namespace MarsRoverKataProject3
 
                 richTextBox1.Text = " ";
 
-                for (int j = DimensionsOfPlateau[0] - 1; j >= 0; j--)
+                for (int j = DimensionsOfPlateau[1] - 1; j >= 0; j--)
                 {
                     StringBuilder outstringbuffer = new StringBuilder(" ", 20);
 
-                    for (int i = 0; i < DimensionsOfPlateau[1]; i++)
+                    for (int i = 0; i < DimensionsOfPlateau[0]; i++)
                     {
-                        outstringbuffer.Append("    ");
+                            outstringbuffer.Append("    ");
                         outstringbuffer.Append(OccupationMap[i, j]);
                     }
 
@@ -213,13 +213,13 @@ namespace MarsRoverKataProject3
 
                     richTextBox1.Text = " ";
 
-                    for (int j = DimensionsOfPlateau[0] - 1; j >= 0; j--)
+                    for (int j = DimensionsOfPlateau[1] - 1; j >= 0; j--)
                     {
-                        StringBuilder outstringbuffer = new StringBuilder(" ", 20);
+                            StringBuilder outstringbuffer = new StringBuilder(" ", 20);
 
-                        for (int i = 0; i < DimensionsOfPlateau[1]; i++)
+                        for (int i = 0; i < DimensionsOfPlateau[0]; i++)
                         {
-                            outstringbuffer.Append("    ");
+                                outstringbuffer.Append("    ");
                             outstringbuffer.Append(OccupationMap[i, j]);
                         }
 
@@ -294,13 +294,13 @@ namespace MarsRoverKataProject3
 
                 richTextBox1.Text = " ";
 
-                for (int j = DimensionsOfPlateau[0] - 1; j >= 0; j--)
+                for (int j = DimensionsOfPlateau[1] - 1; j >= 0; j--)
                 {
                     StringBuilder outstringbuffer = new StringBuilder(" ", 20);
 
-                    for (int i = 0; i < DimensionsOfPlateau[1]; i++)
+                    for (int i = 0; i < DimensionsOfPlateau[0]; i++)
                     {
-                        outstringbuffer.Append("    ");
+                            outstringbuffer.Append("    ");
                         outstringbuffer.Append(OccupationMap[i, j]);
                     }
 
@@ -362,11 +362,11 @@ namespace MarsRoverKataProject3
 
                     richTextBox1.Text = " ";
 
-                    for (int j = DimensionsOfPlateau[0] - 1; j >= 0; j--)
+                    for (int j = DimensionsOfPlateau[1] - 1; j >= 0; j--)
                     {
                         StringBuilder outstringbuffer = new StringBuilder(" ", 20);
 
-                        for (int i = 0; i < DimensionsOfPlateau[1]; i++)
+                        for (int i = 0; i < DimensionsOfPlateau[0]; i++)
                         {
                             outstringbuffer.Append("    ");
                             outstringbuffer.Append(OccupationMap[i, j]);

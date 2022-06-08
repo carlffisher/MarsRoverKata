@@ -46,13 +46,18 @@ To activate it:
 
             Test4:
            
-                MarsRover MoveVehicle() method correctly works with two vehicles
+                Two marsrover obejcts correctly update shared occupation map ...
+
+            Test5:
+
+                MarsRover method MoveVehicle()correctly moves two marsrover objects
+
 
 Limitations:
 
 As the software stands, any number of vehicles can be operated an an area of user configurable size.
 However, due to lack of time to fully complete the work, some small issues remain outstanding:
 
-Neither rover can move through its own start coordinates. 
+Neither rover can 'land' on its own start coordinates, althhough they can move through them.
 Also, neither rover is individually identified on the graphical map.
 Alternating moves have not been enforced.

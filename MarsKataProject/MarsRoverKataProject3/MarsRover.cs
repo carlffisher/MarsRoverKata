@@ -83,11 +83,11 @@ namespace MarsRoverKataProject3
             VehicleName       = RetrieveNameOfVehicle();
             TempOldPosVehicle = RetrievePositionOfVehicle();
 
-            OldPosVehicle[0]  = TempOldPosVehicle[0]; // Get the value insteadof reference, so it is unchanged by increments to NewPosVehicle coords
-            OldPosVehicle[1]  = TempOldPosVehicle[1];
-
+            OldPosVehicle[0]  = TempOldPosVehicle[0]; // Get the value into a new reference variable, so value of OldPosVehicle is unchanged by increments to NewPosVehicle coords.
+            OldPosVehicle[1]  = TempOldPosVehicle[1]; // I guess the unwanted increment is because both OldPosVehicle and NewPosVehicle use UpdatePositionOfVehicle
+                                                      // method so they end up pointing to the same memory location storing the value.
             NewPosVehicle     = RetrievePositionOfVehicle();
-         
+
             OldOrientVehicle  = RetrieveOrientationOfVehicle();
             NewOrientVehicle  = RetrieveOrientationOfVehicle();
             DimsPlateau       = plateau.RetrieveDimensionsOfPlateau();

@@ -95,11 +95,12 @@ namespace MarsRoverKataProject3
             _dimensionsOfPlateau = RetrieveDimensionsOfPlateau();
             occupationmap = new char[_dimensionsOfPlateau[0], _dimensionsOfPlateau[1]];
 
-            UpdateOccupationMap(occupationmap); // update the base occupation map ...
+            UpdateOccupationMap(occupationmap);
 
-            for (int i = 0; i < _dimensionsOfPlateau[0]; i++)           // Initialise the martion plateau occupation map ...
+            // Initialise the martion plateau occupation map ...
+            for (int j = _dimensionsOfPlateau[1] - 1; j >= 0; j--)
             {
-                for (int j = 0; j < _dimensionsOfPlateau[1]; j++)
+                for (int i = 0; i < _dimensionsOfPlateau[0]; i++)
                 {
                     occupationmap[i, j] = '-';                         // '-' == 'unoccupied' 
                 }

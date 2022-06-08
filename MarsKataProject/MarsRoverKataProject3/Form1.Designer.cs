@@ -92,6 +92,7 @@
             this.mapdimsxinput.Name = "mapdimsxinput";
             this.mapdimsxinput.Size = new System.Drawing.Size(75, 23);
             this.mapdimsxinput.TabIndex = 2;
+            this.mapdimsxinput.Text = "5";
             this.mapdimsxinput.TextChanged += new System.EventHandler(this.mapdimsxinput_TextChanged);
             // 
             // mapdimsyinput
