@@ -5,8 +5,8 @@ This code implements the NUnit test function.
 
 To activate it:
 
-* The reference to Microsoft.NET.Test.Sdk in MarsRoverKataProject3.csproj is commented out. Uncomment it.
-* Install Microsoft.NET.Test.Sdk with VS Package Manager
+* The reference to Microsoft.NET.Test.Sdk in MarsRoverKataProject3.csproj is commented out. Uncomment it OR
+* Install Microsoft.NET.Test.Sdk with VS Package Manager THEN
 * In Programs.cs comment out Main() method
 * Rebuild
 
@@ -17,15 +17,17 @@ To activate it:
 
             There are two abstract interface classes:
 
-            ExtraPlanetaryVehicle - which implements the common features of any extra-planetary exploration vehicle.
+            ExtraPlanetaryVehicle - which implements the common features of any extra-planetary exploration vehicle. 
+            The class contains all the methods to control the movements of the vehicle
 
-            MartianPlateau - which implements the common features of any Martian plateau.This class also implements
-            an occupation map which records the location of multiple concurrently active vehicles and is commonly 
-            accessible by them.
+            MartianPlateau - which implements the common features of any rectangular Martian plateau.
+            This class also implements an occupation map which records the location of multiple concurrently active vehicles.
+            This map is commonly accessible by these vehicles.
 
             Using these two classes, objects can be created and further customised to reflect
             the different characteristics of individual extra planetary exploration vehicles and different 
             Martian exploration areas.
+
             
 2.  Implement classes and objects to test:
 
@@ -55,9 +57,10 @@ To activate it:
 
 Limitations:
 
-As the software stands, any number of vehicles can be operated an an area of user configurable size.
-However, due to lack of time to fully complete the work, some small issues remain outstanding:
+As the software stands, any number of vehicles can be operated in an area of user configurable size.
+However, additional Forms GUIs must be created.
 
-Neither rover can 'land' on its own start coordinates, althhough they can move through them.
-Also, neither rover is individually identified on the graphical map.
 Alternating moves have not been enforced.
+
+Vehicles cannot move to an occupied location. However, they can move through an occupied location.
+

@@ -14,8 +14,9 @@ namespace MarsRoverKataProject3
         }
     }
 
+
 /* original ...
- * 
+ 
    internal static class Program
    {
        /// <summary>

@@ -12,8 +12,11 @@ namespace MarsRoverKataProject3
 {
     public partial class Form1 : Form
     {
-        MarsRover marsrover1 = new();
-        MarsRover marsrover2 = new();
+        static private int[] _InitPosofRover = { 0, 0 };
+
+        MarsRover marsrover1 = new(_InitPosofRover, 'N', "marsrover1", '1');
+        MarsRover marsrover2 = new(_InitPosofRover, 'N', "marsrover2", '2');
+
         SquareMartianPlateauArea martianplateauarea1 = new(); 
         
         private int[] DimensionsOfPlateau = { 0, 0 };
@@ -22,6 +25,9 @@ namespace MarsRoverKataProject3
         private int[] PrevPositionOfVehicle2 = { 0, 0 };
         private int[] NewPositionOfVehicle1 = { 0, 0 }; // All vehicles originate at 0 0
         private int[] NewPositionOfVehicle2 = { 0, 0 };
+        private char  IdOfVehicle;
+        private const int MAXDIMPLATEAUX = 15;
+        private const int MAXDIMPLATEAUY = 15;
 
         public Form1()
         {
@@ -34,8 +40,6 @@ namespace MarsRoverKataProject3
 
             string xstring;
             string ystring;
-            const int MAXDIMX = 14;
-            const int MAXDIMY = 14;
 
             xstring = mapdimsxinput.Text;
             ystring = mapdimsyinput.Text;
@@ -50,9 +54,13 @@ namespace MarsRoverKataProject3
             {
                 mapdimsoutput.Text = "Enter two integers representing the dimensions of the Martian plateau map";
             }
-            else if (xcoord > MAXDIMX || ycoord > MAXDIMY)
+            else if (xcoord < 5 || ycoord < 5)
             {
-                mapdimsoutput.Text = "Enter two integers, each < 15, representing the dimensions of the Martian plateau map";
+                mapdimsoutput.Text = "Enter two integers, each >= 5 ";
+            }
+            else if (xcoord >= MAXDIMPLATEAUX || ycoord >= MAXDIMPLATEAUY)
+            {
+                mapdimsoutput.Text = "Enter two integers, < the maximium permissible dimensions of the Martian plateau map";
             }
             else
             {
@@ -71,16 +79,36 @@ namespace MarsRoverKataProject3
 
                 for (int j = DimensionsOfPlateau[1] - 1; j >= 0; j--)
                 {
-                    StringBuilder outstringbuffer = new StringBuilder(" ", 20);
+                    StringBuilder outstringbuffer1 = new StringBuilder(" ", 20);
+
+                    outstringbuffer1.Append(j);
+                    outstringbuffer1.Append("\t");
 
                     for (int i = 0; i < DimensionsOfPlateau[0]; i++)
                     {
-                        outstringbuffer.Append("    ");
-                        outstringbuffer.Append(OccupationMap[i, j]);
+                        outstringbuffer1.Append("    ");
+                        outstringbuffer1.Append(OccupationMap[i, j]);
                     }
 
-                    richTextBox1.Invoke(new Action(() => richTextBox1.Text = String.Concat(richTextBox1.Text, Environment.NewLine, " " + outstringbuffer)));
+                    richTextBox1.Invoke(new Action(() => richTextBox1.Text = String.Concat(richTextBox1.Text, Environment.NewLine, " " + outstringbuffer1)));
+
+                    outstringbuffer1.Clear();
                 }
+
+                StringBuilder outstringbuffer2 = new StringBuilder("  ", 20);
+                outstringbuffer2.Append("\n");
+                outstringbuffer2.Append("                ");
+
+                richTextBox1.Invoke(new Action(() => richTextBox1.Text = String.Concat(richTextBox1.Text, Environment.NewLine, " " + outstringbuffer2)));
+
+                for (int i = 0; i < DimensionsOfPlateau[0]; i++)
+                {
+                    outstringbuffer2.Append("   ");
+
+                    outstringbuffer2.Append(i);
+                }
+
+                richTextBox1.Invoke(new Action(() => richTextBox1.Text = String.Concat(richTextBox1.Text, Environment.NewLine, " " + outstringbuffer2)));               
             }
         }
 
@@ -107,13 +135,12 @@ namespace MarsRoverKataProject3
             }
             else if ((xcoord < 0 || ycoord < 0) || (xcoord >= DimensionsOfPlateau[0] || ycoord >= DimensionsOfPlateau[1]))
             {
-                textBox1.Text = "Enter two integers >= 0 and < maximium dimensions of plateau";
+                textBox1.Text = "Enter two integers, each >= 5 and < maximium dimensions of plateau";
             }
             else if (ostring[0] != 'N' && ostring[0] != 'S' && ostring[0] != 'E' && ostring[0] != 'W')
             {
                 textBox1.Text = " " + ostring[0] + " Enter N, S, E or W representing the initial orientation of Mars Rover 1";
             }
-            
             else
             {
                  textBox1.Text = " " + ostring[0];
@@ -130,7 +157,9 @@ namespace MarsRoverKataProject3
                 NewPositionOfVehicle1[0] = xcoord;
                 NewPositionOfVehicle1[1] = ycoord;
 
-                IsTrue = martianplateauarea1.UpdateStatusOfCoordInOccupationMap(TempXYCoords, NewPositionOfVehicle1); // With occupation check
+                IdOfVehicle = marsrover1.RetrieveIdOfVehicle();
+
+                IsTrue = martianplateauarea1.UpdateStatusOfCoordInOccupationMap(TempXYCoords, NewPositionOfVehicle1, IdOfVehicle); // With occupation check
 
                 if (!IsTrue)
                 {
@@ -143,23 +172,43 @@ namespace MarsRoverKataProject3
 
                 marsrover1.UpdateOrientationOfVehicle(ostring[0]);
 
+
                 // Display the occupation map ...
 
                 richTextBox1.Text = " ";
 
                 for (int j = DimensionsOfPlateau[1] - 1; j >= 0; j--)
                 {
-                    StringBuilder outstringbuffer = new StringBuilder(" ", 20);
+                    StringBuilder outstringbuffer1 = new StringBuilder(" ", 20);
+
+                    outstringbuffer1.Append(j);
+                    outstringbuffer1.Append("\t");
 
                     for (int i = 0; i < DimensionsOfPlateau[0]; i++)
                     {
-                            outstringbuffer.Append("    ");
-                        outstringbuffer.Append(OccupationMap[i, j]);
+                        outstringbuffer1.Append("    ");
+                        outstringbuffer1.Append(OccupationMap[i, j]);
                     }
 
-                    richTextBox1.Invoke(new Action(() => richTextBox1.Text = String.Concat(richTextBox1.Text, Environment.NewLine, " " + outstringbuffer)));
+                    richTextBox1.Invoke(new Action(() => richTextBox1.Text = String.Concat(richTextBox1.Text, Environment.NewLine, " " + outstringbuffer1)));
+
+                    outstringbuffer1.Clear();
                 }
 
+                StringBuilder outstringbuffer2 = new StringBuilder("  ", 20);
+                outstringbuffer2.Append("\n");
+                outstringbuffer2.Append("                ");
+
+                richTextBox1.Invoke(new Action(() => richTextBox1.Text = String.Concat(richTextBox1.Text, Environment.NewLine, " " + outstringbuffer2)));
+
+                for (int i = 0; i < DimensionsOfPlateau[0]; i++)
+                {
+                    outstringbuffer2.Append("   ");
+
+                    outstringbuffer2.Append(i);
+                }
+
+                richTextBox1.Invoke(new Action(() => richTextBox1.Text = String.Concat(richTextBox1.Text, Environment.NewLine, " " + outstringbuffer2)));
                 textBox1.Text = "Mars rover 1 at coordinate position " + NewPositionOfVehicle1[0] + " " + NewPositionOfVehicle1[1] + "  " + " Orientation : " + marsrover1.RetrieveOrientationOfVehicle();
             }
         }
@@ -215,18 +264,37 @@ namespace MarsRoverKataProject3
 
                     for (int j = DimensionsOfPlateau[1] - 1; j >= 0; j--)
                     {
-                            StringBuilder outstringbuffer = new StringBuilder(" ", 20);
+                        StringBuilder outstringbuffer1 = new StringBuilder(" ", 20);
+
+                        outstringbuffer1.Append(j);
+                        outstringbuffer1.Append("\t");
 
                         for (int i = 0; i < DimensionsOfPlateau[0]; i++)
                         {
-                                outstringbuffer.Append("    ");
-                            outstringbuffer.Append(OccupationMap[i, j]);
+                            outstringbuffer1.Append("    ");
+                            outstringbuffer1.Append(OccupationMap[i, j]);
                         }
 
-                        richTextBox1.Invoke(new Action(() => richTextBox1.Text = String.Concat(richTextBox1.Text, Environment.NewLine, " " + outstringbuffer)));
+                        richTextBox1.Invoke(new Action(() => richTextBox1.Text = String.Concat(richTextBox1.Text, Environment.NewLine, " " + outstringbuffer1)));
 
-                        if (IsTrue) textBox6.Text = "Mars rover 2 at coordinate position " + NewPositionOfVehicle1[0] + " " + NewPositionOfVehicle1[1] + "  " + " Orientation : " + marsrover1.RetrieveOrientationOfVehicle();
+                        outstringbuffer1.Clear();
                     }
+
+                    StringBuilder outstringbuffer2 = new StringBuilder("  ", 20);
+                    outstringbuffer2.Append("\n");
+                    outstringbuffer2.Append("                ");
+
+                    richTextBox1.Invoke(new Action(() => richTextBox1.Text = String.Concat(richTextBox1.Text, Environment.NewLine, " " + outstringbuffer2)));
+
+                    for (int i = 0; i < DimensionsOfPlateau[0]; i++)
+                    {
+                        outstringbuffer2.Append("   ");
+
+                        outstringbuffer2.Append(i);
+                    }
+
+                    richTextBox1.Invoke(new Action(() => richTextBox1.Text = String.Concat(richTextBox1.Text, Environment.NewLine, " " + outstringbuffer2)));
+                    if (IsTrue) textBox6.Text = "Mars rover 1 at coordinate position " + NewPositionOfVehicle1[0] + " " + NewPositionOfVehicle1[1] + "  " + " Orientation : " + marsrover1.RetrieveOrientationOfVehicle();
                 }
             }
         }
@@ -277,7 +345,9 @@ namespace MarsRoverKataProject3
                 NewPositionOfVehicle2[0] = xcoord;
                 NewPositionOfVehicle2[1] = ycoord;
 
-                IsTrue = martianplateauarea1.UpdateStatusOfCoordInOccupationMap(TempXYCoords, NewPositionOfVehicle2); // With occupation check
+                IdOfVehicle = marsrover2.RetrieveIdOfVehicle();
+
+                IsTrue = martianplateauarea1.UpdateStatusOfCoordInOccupationMap(TempXYCoords, NewPositionOfVehicle2, IdOfVehicle); // With occupation check
 
                 if (!IsTrue)
                 {
@@ -296,17 +366,38 @@ namespace MarsRoverKataProject3
 
                 for (int j = DimensionsOfPlateau[1] - 1; j >= 0; j--)
                 {
-                    StringBuilder outstringbuffer = new StringBuilder(" ", 20);
+
+                    StringBuilder outstringbuffer3 = new StringBuilder(" ", 20);
+
+                    outstringbuffer3.Append(j);
+                    outstringbuffer3.Append("\t");
 
                     for (int i = 0; i < DimensionsOfPlateau[0]; i++)
                     {
-                            outstringbuffer.Append("    ");
-                        outstringbuffer.Append(OccupationMap[i, j]);
+                        outstringbuffer3.Append("    ");
+                        outstringbuffer3.Append(OccupationMap[i, j]);
                     }
 
-                    richTextBox1.Invoke(new Action(() => richTextBox1.Text = String.Concat(richTextBox1.Text, Environment.NewLine, " " + outstringbuffer)));
+                    richTextBox1.Invoke(new Action(() => richTextBox1.Text = String.Concat(richTextBox1.Text, Environment.NewLine, " " + outstringbuffer3)));
+
+                    outstringbuffer3.Clear();
                 }
 
+                StringBuilder outstringbuffer4 = new StringBuilder("  ", 20);
+                outstringbuffer4.Append("\n\n\n");
+                outstringbuffer4.Append("                ");
+
+
+                // richTextBox1.Invoke(new Action(() => richTextBox1.Text = String.Concat(richTextBox1.Text, Environment.NewLine, " " + outstringbuffer4)));
+
+                for (int i = 0; i < DimensionsOfPlateau[0]; i++)
+                {
+                    outstringbuffer4.Append("   ");
+
+                    outstringbuffer4.Append(i);
+                }
+
+                richTextBox1.Invoke(new Action(() => richTextBox1.Text = String.Concat(richTextBox1.Text, Environment.NewLine, " " + outstringbuffer4)));
                 textBox10.Text = "Mars rover 2 at coordinate position " + NewPositionOfVehicle2[0] + " " + NewPositionOfVehicle2[1] + "  " + " Orientation : " + marsrover2.RetrieveOrientationOfVehicle();
             }
         }
@@ -364,22 +455,42 @@ namespace MarsRoverKataProject3
 
                     for (int j = DimensionsOfPlateau[1] - 1; j >= 0; j--)
                     {
-                        StringBuilder outstringbuffer = new StringBuilder(" ", 20);
+                        StringBuilder outstringbuffer1 = new StringBuilder(" ", 20);
+
+                        outstringbuffer1.Append(j);
+                        outstringbuffer1.Append("\t");
 
                         for (int i = 0; i < DimensionsOfPlateau[0]; i++)
                         {
-                            outstringbuffer.Append("    ");
-                            outstringbuffer.Append(OccupationMap[i, j]);
+                            outstringbuffer1.Append("    ");
+                            outstringbuffer1.Append(OccupationMap[i, j]);
                         }
 
-                        richTextBox1.Invoke(new Action(() => richTextBox1.Text = String.Concat(richTextBox1.Text, Environment.NewLine, " " + outstringbuffer)));
+                        richTextBox1.Invoke(new Action(() => richTextBox1.Text = String.Concat(richTextBox1.Text, Environment.NewLine, " " + outstringbuffer1)));
 
-                        if (IsTrue) textBox5.Text = "Mars rover 2 at coordinate position " + NewPositionOfVehicle2[0] + " " + NewPositionOfVehicle2[1] + "  " + " Orientation : " + marsrover2.RetrieveOrientationOfVehicle();
+                        outstringbuffer1.Clear();
                     }
+
+                    StringBuilder outstringbuffer2 = new StringBuilder("  ", 20);
+                    outstringbuffer2.Append("\n");
+                    outstringbuffer2.Append("                ");
+
+                    richTextBox1.Invoke(new Action(() => richTextBox1.Text = String.Concat(richTextBox1.Text, Environment.NewLine, " " + outstringbuffer2)));
+
+                    for (int i = 0; i < DimensionsOfPlateau[0]; i++)
+                    {
+                        outstringbuffer2.Append("   ");
+
+                        outstringbuffer2.Append(i);
+                    }
+
+                    richTextBox1.Invoke(new Action(() => richTextBox1.Text = String.Concat(richTextBox1.Text, Environment.NewLine, " " + outstringbuffer2)));
+                    if (IsTrue) textBox5.Text = "Mars rover 1 at coordinate position " + NewPositionOfVehicle2[0] + " " + NewPositionOfVehicle2[1] + "  " + " Orientation : " + marsrover2.RetrieveOrientationOfVehicle();
                 }
             }
         }
 
+        
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -396,7 +507,6 @@ namespace MarsRoverKataProject3
         }
         private void mapdimsoutput_TextChanged(object sender, EventArgs e)
         {
-          //  mapdimsoutput.Text = "Created Martian location map of dimensions " + xcoord + " " + ycoord;
 
         }
 

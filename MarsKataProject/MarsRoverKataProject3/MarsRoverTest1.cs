@@ -28,16 +28,21 @@ namespace MarsRoverKataProject3.Tests
             int[] PosIntArray2 = { 4, 4 };
             int[] PosIntArray3 = { 2, 5 };
 
-            MarsRover marsrover1 = new();
+            // MarsRover marsrover1 = new();
+
+            MarsRover marsrover1 = new(TestIntegerArray1, 'N', "marsrover1", '1');
 
             marsrover1.RetrieveOrientationOfVehicle().Should().Be('N');
+
             marsrover1.UpdateOrientationOfVehicle('W').Should().Be('W');
 
             marsrover1.RetrievePositionOfVehicle().Should().BeEquivalentTo(TestIntegerArray1);
 
             marsrover1.UpdatePositionOfVehicle(PosIntArray2).Should().BeEquivalentTo(PosIntArray2);
 
-            MarsRover marsrover2 = new();
+            // MarsRover marsrover2 = new();
+
+            MarsRover marsrover2 = new(TestIntegerArray1, 'N', "marsrover1", '2');
 
             marsrover2.RetrieveOrientationOfVehicle().Should().Be('N');
             marsrover2.UpdateOrientationOfVehicle('E').Should().Be('E');
@@ -45,6 +50,12 @@ namespace MarsRoverKataProject3.Tests
             marsrover2.RetrievePositionOfVehicle().Should().BeEquivalentTo(TestIntegerArray1);
 
             marsrover2.UpdatePositionOfVehicle(PosIntArray3).Should().BeEquivalentTo(PosIntArray3);
+
+            Console.WriteLine("TEST 1 RESULT: Development environment works ! ");
+            Console.WriteLine("TEST 2 RESULT: PASS: UpdateOrientationOfVehicle() ");
+            Console.WriteLine("TEST 2 RESULT: PASS: RetrieveOrientationOfVehicle() ");
+            Console.WriteLine("TEST 2 RESULT: PASS: UpdatePositionOfVehicle() ");
+            Console.WriteLine("TEST 2 RESULT: PASS: RetrievePositionOfVehicle() ");
         }
 
         [Test]
@@ -83,7 +94,7 @@ namespace MarsRoverKataProject3.Tests
                                                     { '-', '-', '-', '-', '-' },
                                                     { '-', '-', '-', '-', '-' } };
 
-            char[,] expected_arr2D2 = new char[,] {  { 'X', '-', '-', '-', '-' },
+            char[,] expected_arr2D2 = new char[,] { { '1', '-', '-', '-', '-' },
                                                     { '-', '-', '-', '-', '-' },
                                                     { '-', '-', '-', '-', '-' },
                                                     { '-', '-', '-', '-', '-' },
@@ -97,8 +108,10 @@ namespace MarsRoverKataProject3.Tests
 
             // change the status of initial location coord in occupation map and update it ...
 
-            Occupationmap1[0, 0] = 'X';
+            Occupationmap1 = martianplateauarea1.RetrieveOccupationMap();
             
+            Occupationmap1[0, 0] = '1';
+
             martianplateauarea1.UpdateOccupationMap(Occupationmap1).Should().BeEquivalentTo(expected_arr2D2); // Without occupation check - it's a new map
 
             int[] OldPosVehicle = { 0, 0 };
@@ -106,7 +119,14 @@ namespace MarsRoverKataProject3.Tests
 
             bool TestBool = true;
 
-            martianplateauarea1.UpdateStatusOfCoordInOccupationMap(OldPosVehicle, NewPosVehicle).Should().Be(TestBool); // With occupation check
+            martianplateauarea1.UpdateStatusOfCoordInOccupationMap(OldPosVehicle, NewPosVehicle, '1').Should().Be(TestBool); // With occupation check
+
+            Console.WriteLine("TEST 3 RESULT: PASS: UpdateDimensionsOfPlateau() ");
+            Console.WriteLine("TEST 3 RESULT: PASS: RetrieveDimensionsOfPlateau() ");
+            Console.WriteLine("TEST 3 RESULT: PASS: ConstructOccupationMap() ");
+            Console.WriteLine("TEST 3 RESULT: PASS: RetrieveOccupationMap() ");
+            Console.WriteLine("TEST 3 RESULT: PASS: UpdateOccupationMap() ");
+            Console.WriteLine("TEST 3 RESULT: PASS: UpdateStatusOfCoordInOccupationMap() ");
         }
 
         [Test]
@@ -119,8 +139,14 @@ namespace MarsRoverKataProject3.Tests
             int[]   OldPosVehicle = { 0, 0 };
             int[]   NewPosVehicle = { 0, 0 };
 
-            MarsRover marsrover1 = new();
-            MarsRover marsrover2 = new();
+            // MarsRover marsrover1 = new();
+            // MarsRover marsrover2 = new();
+
+            int[] _InitPosofRover = { 0, 0 };
+
+            MarsRover marsrover1 = new(_InitPosofRover, 'N', "marsrover1", '1');
+            MarsRover marsrover2 = new(_InitPosofRover, 'N', "marsrover2", '2');
+
             SquareMartianPlateauArea martianplateauarea1 = new();
 
             char[,] expected_arr2D1 = new char[,] { { '-', '-', '-', '-', '-' },
@@ -129,19 +155,20 @@ namespace MarsRoverKataProject3.Tests
                                                     { '-', '-', '-', '-', '-' },
                                                     { '-', '-', '-', '-', '-' } };
 
-            char[,] expected_arr2D2 = new char[,] { { 'X', 'X', '-', '-', '-' },
+            char[,] expected_arr2D2 = new char[,] { { '1', '1', '-', '-', '-' },
                                                     { '-', '-', '-', '-', '-' },
                                                     { '-', '-', '-', '-', '-' },
-                                                    { '-', 'X', '-', 'X', '-' },
-                                                    { '-', 'X', '-', '-', '-' } };
+                                                    { '-', '1', '-', '1', '-' },
+                                                    { '-', '1', '-', '-', '-' } };
 
 
-            char[,] expected_arr2D3 = new char[,] { { 'X', 'X', '-', '-', '-' },
+            /*
+            char[,] expected_arr2D3 = new char[,] { { '1', '1', '-', '-', '-' },
                                                     { '-', '-', '-', '-', '-' },
-                                                    { '-', '-', '-', 'X', '-' },
-                                                    { '-', 'X', '-', 'X', '-' },
+                                                    { '-', '-', '-', '1', '-' },
+                                                    { '-', '1', '-', '1', '-' },
                                                     { '-', '-', '-', '-', '-' } };
-
+            */
 
             martianplateauarea1.ConstructOccupationMap(DimensionsOfPlateau1).Should().BeEquivalentTo(expected_arr2D1);
             martianplateauarea1.RetrieveOccupationMap().Should().BeEquivalentTo(expected_arr2D1);
@@ -150,24 +177,30 @@ namespace MarsRoverKataProject3.Tests
 
             Occupationmap1 = expected_arr2D1;
 
-            Occupationmap1[0, 0] = 'X';
-            Occupationmap1[0, 1] = 'X';
-            Occupationmap1[3, 3] = 'X';
-            Occupationmap1[3, 1] = 'X';
-            Occupationmap1[4, 1] = 'X';
+            Occupationmap1[0, 0] = '1';
+            Occupationmap1[0, 1] = '1';
+            Occupationmap1[3, 3] = '1';
+            Occupationmap1[3, 1] = '1';
+            Occupationmap1[4, 1] = '1';
 
             martianplateauarea1.UpdateOccupationMap(Occupationmap1).Should().BeEquivalentTo(expected_arr2D2); // Without occupation check - it's a new map
 
-            // Now update another coordinate in occupation map, this time checking for occupation of cood location ...
+            // Now update another coordinate in occupation map, this time checking for occupation of coord location ...
 
             OldPosVehicle[0] = 4;
             OldPosVehicle[1] = 1;
-            NewPosVehicle[0] = 2;
+            NewPosVehicle[0] = 3;
             NewPosVehicle[1] = 4;
 
             bool TestBool = true;
 
-            martianplateauarea1.UpdateStatusOfCoordInOccupationMap(OldPosVehicle, NewPosVehicle).Should().Be(TestBool); // With occupation check
+            martianplateauarea1.UpdateStatusOfCoordInOccupationMap(OldPosVehicle, NewPosVehicle, '1').Should().Be(TestBool); // With occupation check
+
+            Console.WriteLine("TEST 4 RESULT: PASS: RetrieveDimensionsOfPlateau() ");
+            Console.WriteLine("TEST 4 RESULT: PASS: ConstructOccupationMap() ");
+            Console.WriteLine("TEST 4 RESULT: PASS: RetrieveOccupationMap() ");
+            Console.WriteLine("TEST 4 RESULT: PASS: UpdateOccupationMap() ");
+            Console.WriteLine("TEST 4 RESULT: PASS: UpdateStatusOfCoordInOccupationMap() ");
         }
 
         [Test]
@@ -187,32 +220,45 @@ namespace MarsRoverKataProject3.Tests
                                                     { '-', '-', '-', '-', '-' } };
 
 
-            char[,] expected_arr2D2 = new char[,] { { 'X', '-', '-', '-', '-' },
+            char[,] expected_arr2D2 = new char[,] { { '1', '-', '-', '-', '-' },
                                                     { '-', '-', '-', '-', '-' },
                                                     { '-', '-', '-', '-', '-' },
                                                     { '-', '-', '-', '-', '-' },
                                                     { '-', '-', '-', '-', '-' } };
 
+            /*
             char[,] expected_arr2D3 = new char[,] { { '-', '-', '-', '-', '-' },
-                                                    { '-', '-', 'X', '-', '-' },
+                                                    { '-', '-', '1', '-', '-' },
                                                     { '-', '-', '-', '-', '-' },
                                                     { '-', '-', '-', '-', '-' },
                                                     { '-', '-', '-', '-', '-' } };
+            */
 
-            char[,] expected_arr2D4 = new char[,] { { '-', 'X', '-', '-', '-' },
-                                                    { '-', '-', '-', 'X', '-' },
+            /*
+            char[,] expected_arr2D4 = new char[,] { { '-', '1', '-', '-', '-' },
+                                                    { '-', '-', '-', '1', '-' },
                                                     { '-', '-', '-', '-', '-' },
-                                                    { '-', '-', '-', 'X', '-' },
+                                                    { '-', '-', '-', '1', '-' },
                                                     { '-', '-', '-', '-', '-' } };
 
+            */
 
             // Set Up the initial coordinate map and test its construction ...
 
-            MarsRover marsrover1 = new();
-            MarsRover marsrover2 = new();
+            // MarsRover marsrover1 = new();
+            // MarsRover marsrover2 = new();
 
-            marsrover1.UpdateNameOfVehicle("marsrover1");
-            marsrover2.UpdateNameOfVehicle("marsrover2");
+
+            int[] _InitPosofRover = { 0, 0 };
+
+            MarsRover marsrover1 = new(_InitPosofRover, 'N', "marsrover1", '1');
+            MarsRover marsrover2 = new(_InitPosofRover, 'N', "marsrover2", '2');
+
+
+
+
+            // marsrover1.UpdateNameOfVehicle("marsrover1");
+            // marsrover2.UpdateNameOfVehicle("marsrover2");
 
             SquareMartianPlateauArea martianplateauarea1 = new();
             
@@ -221,7 +267,7 @@ namespace MarsRoverKataProject3.Tests
 
             Occupationmap1 = martianplateauarea1.RetrieveOccupationMap();
 
-            Occupationmap1[0, 0] = 'X';
+            Occupationmap1[0, 0] = '1';
             
             martianplateauarea1.UpdateOccupationMap(Occupationmap1).Should().BeEquivalentTo(expected_arr2D2); // Without occupation check - it's a new map
 
@@ -233,7 +279,7 @@ namespace MarsRoverKataProject3.Tests
 
             bool TestBool = true;
 
-            martianplateauarea1.UpdateStatusOfCoordInOccupationMap(OldPosVehicle, NewPosVehicle).Should().Be(TestBool); // With occupation check
+            martianplateauarea1.UpdateStatusOfCoordInOccupationMap(OldPosVehicle, NewPosVehicle, '1').Should().Be(TestBool); // With occupation check
             
             marsrover1.UpdateOrientationOfVehicle('N').Should().Be('N');
 
@@ -265,7 +311,7 @@ namespace MarsRoverKataProject3.Tests
 
             TestBool = true;
 
-            martianplateauarea1.UpdateStatusOfCoordInOccupationMap(OldPosVehicle, NewPosVehicle).Should().Be(TestBool); // With occupation check
+            martianplateauarea1.UpdateStatusOfCoordInOccupationMap(OldPosVehicle, NewPosVehicle, '2').Should().Be(TestBool); // With occupation check
 
             marsrover2.UpdateOrientationOfVehicle('E').Should().Be('E');
 
@@ -294,6 +340,22 @@ namespace MarsRoverKataProject3.Tests
             MoveConfirmString = "marsrover1: successful move to location 1 4; vehicle now facing W ";
 
             marsrover1.MoveVehicle(martianplateauarea1, marsrover1, MoveVehicleInstructions3).Should().Be(MoveConfirmString);
+
+            Console.WriteLine("TEST 5 RESULT: PASS: ConstructOccupationMap() ");
+            Console.WriteLine("TEST 5 RESULT: PASS: RetrieveOccupationMap() ");
+            Console.WriteLine("TEST 5 RESULT: PASS: UpdateOccupationMap() ");
+            Console.WriteLine("TEST 5 RESULT: PASS: UpdateStatusOfCoordInOccupationMap() ");
+            Console.WriteLine("TEST 5 RESULT: PASS: UpdateOrientationOfVehicle() ");
+            Console.WriteLine("TEST 5 RESULT: PASS: UpdatePositionOfVehicle() ");
+            Console.WriteLine("TEST 5 RESULT: PASS: MoveVehicle (1) () ");
+            Console.WriteLine("TEST 5 RESULT: PASS: RetrieveOccupationMap() ");
+            Console.WriteLine("TEST 5 RESULT: PASS: UpdateStatusOfCoordInOccupationMap() ");
+            Console.WriteLine("TEST 5 RESULT: PASS: UpdateOrientationOfVehicle() ");
+            Console.WriteLine("TEST 5 RESULT: PASS: UpdatePositionOfVehicle() ");
+            Console.WriteLine("TEST 5 RESULT: PASS: MoveVehicle (2) () ");
+            Console.WriteLine("TEST 5 RESULT: PASS: UpdateOrientationOfVehicle() ");
+            Console.WriteLine("TEST 5 RESULT: PASS: UpdatePositionOfVehicle() ");
+            Console.WriteLine("TEST 5 RESULT: PASS: MoveVehicle (1) () ");
         }
     }
 }

@@ -11,18 +11,29 @@ namespace MarsRoverKataProject3
     {
         private int[] _positionOfVehicle;
         private char _orientationOfVehicle;
-        public string _name;
-        protected ExtraPlanetaryVehicle(int[] positionofvehicle, char orientationofvehicle, string nameofvehicle)
+        private string _name;
+        private char _idofvehicle;
+
+
+        protected ExtraPlanetaryVehicle(int[] positionofvehicle, char orientationofvehicle, string nameofvehicle, char idofvehicle)
         {
             _positionOfVehicle = positionofvehicle;
             _orientationOfVehicle = orientationofvehicle;
             _name = nameofvehicle;
+            _idofvehicle = idofvehicle;
         }
 
         public int[] PositionOfVehicle { get { return _positionOfVehicle; } private set { _positionOfVehicle = value; } }
         public char OrientationOfVehicle { get { return _orientationOfVehicle; } private set { _orientationOfVehicle = value; } }
         public string Name { get { return _name; }  private set { _name = value; } }
+        public char ID { get { return _idofvehicle; } private set { _idofvehicle = value; } }
 
+
+        public char RetrieveIdOfVehicle()
+        {
+            return _idofvehicle;
+        }
+        
         public string RetrieveNameOfVehicle()
         {
             return _name;
@@ -64,27 +75,33 @@ namespace MarsRoverKataProject3
 
     public class MarsRover : ExtraPlanetaryVehicle
     {
-        static private int[] _initposofrover = { 0, 0 };
-        static private string nameofvehicle = "placeholder";
+        // public MarsRover() : base(_initposofrover, 'N', _nameofvehicle, _idOfVehicle) { }
 
-        public MarsRover() : base(_initposofrover, 'N', nameofvehicle) { }
+        // public MarsRover(int[] InitPosOfRover, char InitOrientOfRover, string NameOfVehicle, char IdOfVehicle) : base(InitPosOfRover, InitOrientOfRover, NameOfVehicle, IdOfVehicle) { }
+
+        public MarsRover(int[] InitPosOfRover, char InitOrientOfRover, string NameOfVehicle, char IdOfVehicle) : base(InitPosOfRover, InitOrientOfRover, NameOfVehicle, IdOfVehicle) { }
+
 
         public new string MoveVehicle(SquareMartianPlateauArea plateau, IExtraPlanetaryVehicle marsrover, char[] movevehicleinstructions)
         {
             string VehicleName;
+            char   IdOfVehicle = '0';
             int[]  NewPosVehicle = { 0, 0 };
             int[]  OldPosVehicle = { 0, 0 };
             int[]  TempOldPosVehicle = { 0, 0 };
-            
+
             char   OldOrientVehicle;
             char   NewOrientVehicle;
             int[]  DimsPlateau;
           
             VehicleName       = RetrieveNameOfVehicle();
+            IdOfVehicle       = RetrieveIdOfVehicle();
+
+
             TempOldPosVehicle = RetrievePositionOfVehicle();
 
-            OldPosVehicle[0]  = TempOldPosVehicle[0]; // Get the value into a new reference variable, so value of OldPosVehicle is unchanged by increments to NewPosVehicle coords.
-            OldPosVehicle[1]  = TempOldPosVehicle[1]; // I guess the unwanted increment is because both OldPosVehicle and NewPosVehicle use UpdatePositionOfVehicle
+            OldPosVehicle[0]  = TempOldPosVehicle[0]; // Get the value into a new variable, so value of OldPosVehicle is unchanged by increments to NewPosVehicle coords.
+            OldPosVehicle[1]  = TempOldPosVehicle[1]; // I guess the unwanted increment is because both OldPosVehicle and NewPosVehicle use GetPositionOfVehicle
                                                       // method so they end up pointing to the same memory location storing the value.
             NewPosVehicle     = RetrievePositionOfVehicle();
 
@@ -92,12 +109,14 @@ namespace MarsRoverKataProject3
             NewOrientVehicle  = RetrieveOrientationOfVehicle();
             DimsPlateau       = plateau.RetrieveDimensionsOfPlateau();
 
+            /*
             Console.WriteLine("movevehicleinstructions");
 
             for (int i = 0; i < movevehicleinstructions.Length; i++)
             {
                 Console.Write(" {0} ", movevehicleinstructions[i]);
             }
+            */
 
             foreach (char amove in movevehicleinstructions)
             {
@@ -153,9 +172,6 @@ namespace MarsRoverKataProject3
                         break;
 
                     case 'L':
-
-                        Console.WriteLine(" ");
-
                         switch (NewOrientVehicle)
                         {
                             case 'N':
@@ -177,7 +193,6 @@ namespace MarsRoverKataProject3
                         break;
 
                     case 'R':
-
                         switch (NewOrientVehicle)
                         {
                             case 'N':
@@ -207,8 +222,10 @@ namespace MarsRoverKataProject3
                 }
 
             }
+
+
                        
-            if (!plateau.UpdateStatusOfCoordInOccupationMap(OldPosVehicle, NewPosVehicle))
+            if (!plateau.UpdateStatusOfCoordInOccupationMap(OldPosVehicle, NewPosVehicle, IdOfVehicle))
             {
                 OldPosVehicle = UpdatePositionOfVehicle(OldPosVehicle);
                 OldOrientVehicle = UpdateOrientationOfVehicle(OldOrientVehicle);

@@ -50,19 +50,21 @@ namespace MarsRoverKataProject3
         public char[,] UpdateOccupationMap(char[,] occupationmap)
         {
             _occupationmap = occupationmap;
-            return _occupationmap = occupationmap;
+            return _occupationmap;
         }
 
-        public bool UpdateStatusOfCoordInOccupationMap(int[] oldpos, int[] newpos)
+        public bool UpdateStatusOfCoordInOccupationMap(int[] oldpos, int[] newpos, char idofvehicle)
         {
-            if (_occupationmap[newpos[0], newpos[1]] == 'X')
+         // if (_occupationmap[newpos[0], newpos[1]] == 'X')
+            if (_occupationmap[newpos[0], newpos[1]] != idofvehicle && _occupationmap[newpos[0], newpos[1]] != '-')
             {
-                return false;
+                    return false;
             }
             else
             {
                 _occupationmap[oldpos[0], oldpos[1]] = '-';
-                _occupationmap[newpos[0], newpos[1]] = 'X';
+             // _occupationmap[newpos[0], newpos[1]] = 'X';
+                _occupationmap[newpos[0], newpos[1]] = idofvehicle;
             }
 
             return true;
@@ -81,7 +83,7 @@ namespace MarsRoverKataProject3
 
     public class SquareMartianPlateauArea : MartianPlateau
     {
-        static private string _mapshape = "SQUARE";
+        static private string _mapshape = "RECTANGLE";
 
         static private int[] _dimensionsOfPlateau = { 0, 0 };
 
